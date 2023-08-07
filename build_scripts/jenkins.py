@@ -50,7 +50,6 @@ class Runner:
             local_repos: List[str],
             not_needed_variant: str,
             pgp_sign_keyid: str,
-            github_auth_token: str,
             source_local_mirror: str,
             git_url: str,
             git_project: str,
@@ -85,7 +84,6 @@ class Runner:
         self.local_repos = local_repos
         self.not_needed_variant = not_needed_variant
         self.pgp_sign_keyid = pgp_sign_keyid
-        self.github_auth_token = github_auth_token
         self.repos_folder = source_local_mirror
         self.koji_excluded_packages = koji_excluded_packages
 
@@ -116,8 +114,7 @@ class Runner:
             beta_suffix=self.beta_suffix,
         ))
         self.pungi_configs_git_repo = (
-            f'https://{self.github_auth_token}@'
-            'github.com/AlmaLinux/pungi-scripts-public.git'
+            'https://github.com/AlmaLinux/pungi-scripts-public.git'
         )
         self.compose_dir_full_path = self.env_path.joinpath(
             'pungi-results',
@@ -359,12 +356,6 @@ def create_parser() -> argparse.ArgumentParser:
         type=Path,
     )
     parser.add_argument(
-        '--github-auth-token',
-        action=StoreAction,
-        default=get_env_var(key='github_auth_token'),
-        type=str,
-    )
-    parser.add_argument(
         '--pgp-sign-keyid',
         action=StoreAction,
         default=get_env_var(key='pgp_sign_keyid'),
@@ -562,7 +553,6 @@ def main():
         local_repos=args.local_repos,
         not_needed_variant=args.not_needed_variant,
         pgp_sign_keyid=args.pgp_sign_keyid,
-        github_auth_token=args.github_auth_token,
         source_local_mirror=args.source_local_mirror,
         git_url=args.git_url,
         git_project=args.git_project,
