@@ -133,7 +133,7 @@ def create_parser():
     parser.add_argument(
         '--koji-excluded-packages',
         required=False,
-        nargs='+',
+        nargs='*',
         type=str,
         default=[],
     )
