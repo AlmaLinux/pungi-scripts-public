@@ -674,7 +674,7 @@ def cli_main():
     latest_result_paths = pungi_results.glob('latest-*')
     logging.info(
         'We have the following latest results "%s"',
-        list(latest_result_paths),
+        latest_result_paths,
     )
     extensions_of_files = ['*.iso', '*.manifest']
     for latest_path in latest_result_paths:
