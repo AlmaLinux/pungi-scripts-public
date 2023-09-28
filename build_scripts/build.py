@@ -37,7 +37,7 @@ def prepare_koji_env(
 
     command = (
         f'pungi-gather-rpms -p {local_mirror} -t {koji_env_path} '
-        f'-e {" ".join(koji_excluded_packages)}'
+        f'-e={" ".join(koji_excluded_packages)}'
     )
     logging.info(command)
     subprocess.check_call(
