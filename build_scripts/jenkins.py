@@ -297,7 +297,7 @@ class Runner:
     def checkout_scripts(self):
 
         pungi_configs_folder = self.working_root_directory.joinpath(
-            'pungi-configs'
+            'pungi-scripts-public'
         )
         try:
             command = f'ls {pungi_configs_folder}'
