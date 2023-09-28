@@ -41,6 +41,7 @@ class Runner:
             distribution_major_version: int,
             distribution_minor_version: int,
             arch: str,
+            branch: str,
             keep_builds: int,
             use_products_repos: bool,
             env_files: List[str],
@@ -73,6 +74,7 @@ class Runner:
         self.distribution_major_version = distribution_major_version
         self.distribution_minor_version = distribution_minor_version
         self.arch = arch
+        self.branch = branch
         self.keep_builds = keep_builds
         self.compose_dir = 'last_compose_dir'
         self.use_products_repos = use_products_repos
@@ -304,7 +306,7 @@ class Runner:
                 f'cd {pungi_configs_folder} && '
                 'rm -rf ./* && git checkout -- . && '
                 'git fetch && git clean -f && '
-                f'git checkout -B master origin/master'
+                f'git checkout -B {self.branch} origin/{self.branch}'
             )
             self.run_command(command=command)
         except subprocess.SubprocessError:
@@ -312,7 +314,7 @@ class Runner:
                 f'cd {self.working_root_directory} && '
                 f'git clone "{self.pungi_configs_git_repo}" '
                 f'&& cd {pungi_configs_folder} '
-                f'&& git checkout -B master origin/master'
+                f'&& git checkout -B {self.branch} origin/{self.branch}'
             )
             self.run_command(command=command)
 
@@ -515,6 +517,12 @@ def create_parser() -> argparse.ArgumentParser:
             is_multiline=True,
         ),
     )
+    parser.add_argument(
+        '--branch',
+        action=StoreAction,
+        type=str,
+        default=get_env_var(key='branch', default='master'),
+    )
     return parser
 
 
@@ -539,6 +547,7 @@ def main():
         distribution_major_version=args.distribution_major_version,
         distribution_minor_version=args.distribution_minor_version,
         arch=args.arch,
+        branch=args.branch,
         keep_builds=args.keep_builds,
         use_products_repos=args.use_products_repos,
         env_files=args.env_files,
