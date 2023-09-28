@@ -271,9 +271,9 @@ class Runner:
             f'--repos {self.final_repo_folders} '
             f'--not-needed-repos {self.not_needed_variant} '
             f'--pgp-sign-keyid {self.pgp_sign_keyid} '
-            f'--sign-service-username {self.sign_service_username} '
-            f'--sign-service-password {self.sign_service_password} '
-            f'--sign-service-endpoint {self.sign_service_endpoint}'
+            f'--sign-service-username={self.sign_service_username} '
+            f'--sign-service-password={self.sign_service_password} '
+            f'--sign-service-endpoint={self.sign_service_endpoint}'
         )
         self.run_command(command=command)
 
@@ -490,19 +490,28 @@ def create_parser() -> argparse.ArgumentParser:
         '--sign-service-username',
         action='store',
         help='An username of a sign service',
-        default=get_env_var(key='sign_service_username'),
+        default=get_env_var(
+            key='sign_service_username',
+            default='',
+        ),
     )
     parser.add_argument(
         '--sign-service-password',
         action='store',
         help='A password of a sign service',
-        default=get_env_var(key='sign_service_password'),
+        default=get_env_var(
+            key='sign_service_password',
+            default='',
+        ),
     )
     parser.add_argument(
         '--sign-service-endpoint',
         action='store',
         help='An endpoint of a sign service',
-        default=get_env_var(key='sign_service_endpoint'),
+        default=get_env_var(
+            key='sign_service_endpoint',
+            default='',
+        ),
     )
     parser.add_argument(
         '-e',
