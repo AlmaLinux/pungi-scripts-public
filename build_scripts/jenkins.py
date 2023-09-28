@@ -425,7 +425,6 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         '--sigkeys-fingerprints',
         action=StoreAction,
-        type=List[str],
         default=get_env_var(
             key='sigkeys_fingerprints',
             default='',
