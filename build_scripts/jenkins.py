@@ -270,7 +270,7 @@ class Runner:
             f'--source-repos-folder {self.repos_folder} '
             f'--repos {self.final_repo_folders} '
             f'--not-needed-repos {self.not_needed_variant} '
-            f'--pgp-sign-keyid {self.pgp_sign_keyid} '
+            f'--pgp-sign-keyid={self.pgp_sign_keyid} '
             f'--sign-service-username={self.sign_service_username} '
             f'--sign-service-password={self.sign_service_password} '
             f'--sign-service-endpoint={self.sign_service_endpoint}'
@@ -355,7 +355,10 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         '--pgp-sign-keyid',
         action=StoreAction,
-        default=get_env_var(key='pgp_sign_keyid'),
+        default=get_env_var(
+            key='pgp_sign_keyid',
+            default='',
+        ),
         type=str,
     )
     parser.add_argument(
