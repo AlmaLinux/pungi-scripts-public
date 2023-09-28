@@ -270,11 +270,15 @@ class Runner:
             f'--source-repos-folder {self.repos_folder} '
             f'--repos {self.final_repo_folders} '
             f'--not-needed-repos {self.not_needed_variant} '
-            f'--pgp-sign-keyid={self.pgp_sign_keyid} '
-            f'--sign-service-username={self.sign_service_username} '
-            f'--sign-service-password={self.sign_service_password} '
-            f'--sign-service-endpoint={self.sign_service_endpoint}'
         )
+        if self.pgp_sign_keyid:
+            command += f'--pgp-sign-keyid={self.pgp_sign_keyid} '
+        if self.sign_service_username:
+            f'--sign-service-username={self.sign_service_username} '
+        if self.sign_service_password:
+            f'--sign-service-password={self.sign_service_password} '
+        if self.sign_service_endpoint:
+            f'--sign-service-endpoint={self.sign_service_endpoint} '
         self.run_command(command=command)
 
     @staticmethod

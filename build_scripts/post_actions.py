@@ -616,7 +616,8 @@ def create_parser():
         '--pgp-sign-keyid',
         action='store',
         help='PGP sign key ID. Used for signing building artifacts',
-        required=True,
+        required=False,
+        default=None,
     )
     parser.add_argument(
         '--middle-result-directory',
