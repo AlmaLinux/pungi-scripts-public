@@ -91,7 +91,7 @@ class Runner:
         self.koji_excluded_packages = koji_excluded_packages
 
         self.build_scripts_path = working_root_directory.joinpath(
-            'pungi-configs',
+            'pungi-scripts-public',
             'build_scripts',
         )
         self.env_path = working_root_directory.joinpath(
